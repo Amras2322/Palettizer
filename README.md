@@ -23,9 +23,6 @@ keys of every compatible app, backing up each file first.
 | btop | `~/.config/btop/btop.conf` + generated theme | template-generated `themes/palettizer.theme` |
 | tmux | `~/.tmux.conf` or `~/.config/tmux/tmux.conf` | managed, sentinel-delimited block |
 
-> `herdr` is intentionally **not** supported yet: its config format has not been
-> reverse-engineered, and it likely inherits the terminal emulator theme anyway.
-
 ## Install
 
 ```sh
