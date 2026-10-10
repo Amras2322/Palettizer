@@ -97,6 +97,67 @@ fn render_colorscheme(palette: &Palette) -> String {
             get("foreground", "#ffffff"),
             get("background", "#000000")
         ),
+        // Extended identifier groups: micro falls back to the root `identifier`
+        // when a subgroup is absent, but defining them enables sub-highlighting.
+        format!("color-link identifier.class \"{}\"", get("cyan", "#00ffff")),
+        format!("color-link identifier.var \"{}\"", get("cyan", "#00ffff")),
+        // Extended constant groups.
+        format!("color-link constant.string \"{}\"", get("green", "#00ff00")),
+        format!(
+            "color-link constant.number \"{}\"",
+            get("yellow", "#ffff00")
+        ),
+        // Symbol groups.
+        format!("color-link symbol \"{}\"", get("magenta", "#ff00ff")),
+        format!(
+            "color-link symbol.brackets \"{}\"",
+            get("brightBlack", "#888888")
+        ),
+        format!("color-link symbol.tag \"{}\"", get("blue", "#0000ff")),
+        // Type groups.
+        format!("color-link type.keyword \"{}\"", get("yellow", "#ffff00")),
+        // Git diff groups.
+        format!("color-link diff-added \"{}\"", get("green", "#00ff00")),
+        format!("color-link diff-modified \"{}\"", get("yellow", "#ffff00")),
+        format!("color-link diff-deleted \"{}\"", get("red", "#ff0000")),
+        // Gutter indicators (distinct from text `error`/`todo`).
+        format!(
+            "color-link gutter-error \"{}\"",
+            get("brightRed", "#ff5555")
+        ),
+        format!(
+            "color-link gutter-warning \"{}\"",
+            get("brightYellow", "#ffff55")
+        ),
+        // UI groups.
+        format!(
+            "color-link tabbar \"{},{}\"",
+            fg,
+            get("background", "#000000")
+        ),
+        format!(
+            "color-link indent-char \"{}\"",
+            get("brightBlack", "#888888")
+        ),
+        format!(
+            "color-link line-number \"{}\"",
+            get("brightBlack", "#888888")
+        ),
+        format!(
+            "color-link current-line-number \"{}\"",
+            get("blue", "#0000ff")
+        ),
+        format!(
+            "color-link cursor-line \"{},{}\"",
+            get("background", "#000000"),
+            fg
+        ),
+        format!(
+            "color-link color-column \"{}\"",
+            get("brightBlack", "#888888")
+        ),
+        // `default` is micro's special keyword for the terminal default color.
+        "color-link type.extended \"default\"".to_string(),
     ];
 
     // app overrides are treated as extra `color-link <group> "#hex"` lines
@@ -140,5 +201,39 @@ mod tests {
         let scheme = render_colorscheme(&palette());
         assert!(scheme.contains("#eeeeee,#111111"));
         assert!(scheme.contains("color-link comment"));
+    }
+
+    #[test]
+    fn scheme_defines_extended_groups() {
+        let scheme = render_colorscheme(&palette());
+        let links = scheme.matches("color-link ").count();
+        assert!(links >= 27, "expected 27+ color-link entries, got {links}");
+        for group in [
+            "identifier.class",
+            "identifier.var",
+            "constant.string",
+            "constant.number",
+            "symbol",
+            "symbol.brackets",
+            "symbol.tag",
+            "type.keyword",
+            "diff-added",
+            "diff-modified",
+            "diff-deleted",
+            "gutter-error",
+            "gutter-warning",
+            "tabbar",
+            "indent-char",
+            "line-number",
+            "current-line-number",
+            "cursor-line",
+            "color-column",
+        ] {
+            assert!(
+                scheme.contains(&format!("color-link {group} ")),
+                "missing color-link {group}"
+            );
+        }
+        assert!(scheme.contains("color-link type.extended \"default\""));
     }
 }
