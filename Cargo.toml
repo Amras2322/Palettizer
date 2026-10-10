@@ -1,0 +1,32 @@
+[package]
+name = "palettizer"
+version = "0.5.0"
+edition = "2021"
+description = "Sync a single source-of-truth color palette to compatible TUI apps"
+license = "MIT"
+repository = "https://github.com/example/palettizer"
+readme = "README.md"
+keywords = ["cli", "theme", "terminal", "palette", "colorscheme"]
+categories = ["command-line-utilities"]
+
+[[bin]]
+name = "palettizer"
+path = "src/main.rs"
+
+[dependencies]
+anyhow = "1"
+clap = { version = "4", features = ["derive", "env"] }
+indexmap = { version = "2", features = ["serde"] }
+serde = { version = "1", features = ["derive"] }
+serde_json = { version = "1", features = ["preserve_order"] }
+serde_yaml = "0.9"
+similar = "2"
+toml_edit = "0.22"
+
+[dev-dependencies]
+tempfile = "3"
+
+[profile.release]
+opt-level = 3
+lto = "thin"
+strip = true

@@ -1,0 +1,33 @@
+name: "dracula"
+origin: https://github.com/dracula
+
+palette:
+  black:        "#282a36"
+  red:          "#ff5555"
+  green:        "#50fa7b"
+  yellow:       "#f1fa8c"
+  blue:         "#bd93f9"
+  magenta:      "#ff79c6"
+  cyan:         "#8be9fd"
+  white:        "#f8f8f2"
+  brightBlack:  "#44475a"
+  brightRed:    "#ff6e67"
+  brightGreen:  "#69ff94"
+  brightYellow: "#ffff86"
+  brightBlue:   "#d6acff"
+  brightMagenta: "#ff92df"
+  brightCyan:   "#a4ffff"
+  brightWhite:  "#ffffff"
+  foreground:   "#f8f8f2"
+  background:   "#282a36"
+
+# Optional: app-specific keys that are not part of the canonical palette.
+# Overrides are applied last and always win.
+#
+# app_overrides:
+#   tmux:
+#     base00: "#282a36"          # -> set -g @palettizer_base00 "#282a36"
+#   alacritty:
+#     colors.selection.background: "#44475a"   # dotted TOML path
+#   ghostty:
+#     palette5: "#ff79c6"       # override one palette slot
